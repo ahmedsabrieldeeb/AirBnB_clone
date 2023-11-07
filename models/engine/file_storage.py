@@ -51,8 +51,8 @@ class FileStorage:
 
         from_json = {}
         try:
-            with open("//wsl.localhost/Ubuntu-22.04/home/nour-m-ibrahim/ALX\AirBnB_clone/file.json", mode='r', encoding="UTF-8") as jsonFile:
-                from_json = json.loads(jsonFile)
+            with open(self.__file_path, mode='r', encoding="UTF-8") as jsonFile:
+                from_json = json.load(jsonFile)
                 for key, value in from_json.items():
                     attr_class_name = value.pop("__class__")
                     self.new(eval(attr_class_name)(**value))
