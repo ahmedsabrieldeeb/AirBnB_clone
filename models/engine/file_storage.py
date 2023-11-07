@@ -80,3 +80,9 @@ class FileStorage:
         for key, value in loaded_objs.items():
             class_name = value['__class__']
             self.__objects[key] = class_dict[class_name](**value)
+
+    def destroy(self, obj):
+        """Removing a specific object permanently"""
+        obj_key = obj.__class__.__name__ + '.' + obj.id
+        (self.__objects).pop(obj_key)
+        self.save()
