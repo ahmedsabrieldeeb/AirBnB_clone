@@ -31,11 +31,12 @@ class FileStorage:
 
     def all(self):
         """Return all the objects saved in the file"""
-        print("In ALL ({})!!!!!".format(len(self.__objects)))
+
         return self.__objects
 
     def new(self, obj):
         """Add a new object into objects dictionary"""
+
         obj_id = obj.__class__.__name__ + '.' + obj.id
         self.__objects[obj_id] = obj
 
@@ -53,6 +54,7 @@ class FileStorage:
         Raises:
             FileNotFoundError: if the JSON file doesn't exist
         """
+
         from ..base_model import BaseModel
         # from ..user import User
         # from ..place import Place
@@ -83,6 +85,7 @@ class FileStorage:
 
     def destroy(self, obj):
         """Removing a specific object permanently"""
+
         obj_key = obj.__class__.__name__ + '.' + obj.id
         (self.__objects).pop(obj_key)
         self.save()
