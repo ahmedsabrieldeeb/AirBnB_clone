@@ -98,7 +98,7 @@ Contributors names and contact info
 * Ahmed Eldeeb  
  [@Linkedin](https://www.linkedin.com/in/ahmedsabrieldeeb/), [@X](https://twitter.com/AhmedEl52390142)
 
-* Nour Ibrahim
+* Nour Ibrahim      
 [@Linkedin](https://www.linkedin.com/in/nourmibrahimmbs/), [@X](https://twitter.com/NourIbrahim1290)
 
 
