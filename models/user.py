@@ -1,4 +1,8 @@
 #!/bin/usr/python3
+"""
+    User Identification Module
+    Author: Nour M. Ibrahim (nouribrahim1290@gmail.com)
+"""
 
 from models.base_model import BaseModel
 

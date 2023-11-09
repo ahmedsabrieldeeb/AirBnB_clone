@@ -1,7 +1,10 @@
 #!/usr/bin/python3
 
 """
-    Define FileStorage class
+    FileStorage class Module
+    Authors:
+        Nour M. Ibrahim (nouribrahim1290@gmail.com)
+        Ahmed Eldeeb (eldeeb757575@gmail.com)
 """
 
 import json
