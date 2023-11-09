@@ -31,11 +31,12 @@ class FileStorage:
 
     def all(self):
         """Return all the objects saved in the file"""
-        print("In ALL ({})!!!!!".format(len(self.__objects)))
+
         return self.__objects
 
     def new(self, obj):
         """Add a new object into objects dictionary"""
+
         obj_id = obj.__class__.__name__ + '.' + obj.id
         self.__objects[obj_id] = obj
 
@@ -53,8 +54,9 @@ class FileStorage:
         Raises:
             FileNotFoundError: if the JSON file doesn't exist
         """
+
         from ..base_model import BaseModel
-        # from ..user import User
+        from ..user import User
         # from ..place import Place
         # from ..amenity import Amenity
         # from ..state import State
@@ -62,8 +64,8 @@ class FileStorage:
         # from ..review import Review
 
         class_dict = {
-            "BaseModel": BaseModel
-            # "User": User,
+            "BaseModel": BaseModel,
+            "User": User
             # "Place": Place,
             # "Review": Review,
             # "Amenity": Amenity,
@@ -72,16 +74,6 @@ class FileStorage:
         }
 
         try:
-<<<<<<< HEAD
-            with open(self.__file_path, mode='r', encoding="UTF-8") as jsonFile:
-                from_json = json.load(jsonFile)
-                for key, value in from_json.items():
-                    attr_class_name = value.pop("__class__")
-                    self.new(eval(attr_class_name)(**value))
-        except:
-            print("Didn't Read Any File XXXXXXXXXX----")
-            pass
-=======
             with open(self.__file_path, "r") as f:
                 loaded_objs = json.load(f)
         except FileNotFoundError:
@@ -90,4 +82,10 @@ class FileStorage:
         for key, value in loaded_objs.items():
             class_name = value['__class__']
             self.__objects[key] = class_dict[class_name](**value)
->>>>>>> d165916c7a10a75557124f9108b3864963b1599d
+
+    def destroy(self, obj):
+        """Removing a specific object permanently"""
+
+        obj_key = obj.__class__.__name__ + '.' + obj.id
+        (self.__objects).pop(obj_key)
+        self.save()

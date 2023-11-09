@@ -121,24 +121,21 @@ class HBNBCommand(cmd.Cmd):
             all
             all <class name>
         """
-        objs_list = []
+
         args = line.split()  # splitting by whitespace by default
         if args:
             if args[0] in HBNBCommand.class_dict.keys():
                 class_name = args[0]
-                objs_dict = copy.deepcopy(storage.all())
-                for key in objs_dict.keys():
-                    if objs_dict[key].__class__.__name__ == class_name:
-                        objs_list.append(str(objs_dict[key]))
+                all_instances = storage.all()
+                objs_list = [str(all_instances[key]) for key in all_instances if all_instances[key].__class__.__name__ == class_name]
                 print(objs_list)
                 return
             else:
                 print("** class doesn't exist **")
                 return
 
-        objs_dict = copy.deepcopy(storage.all())
-        for key in objs_dict.keys():
-            objs_list.append(str(objs_dict[key]))
+        all_instances = storage.all()
+        objs_list = [str(all_instances[key]) for key in all_instances]
         print(objs_list)
 
     def do_update(self, line):
@@ -202,17 +199,6 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when pressing Enter"""
         pass
-
-    # def postcmd(self, stop, line):
-    #     if stop:
-    #         if line.strip().lower() == "quit":
-    #             print("Exiting with 'quit' command...")
-    #         elif line.strip() == "":
-    #             print("Exiting with Ctrl+D (EOF)...")
-    #         else:
-    #             print("Exiting for an unknown reason.")
-    #     return stop
-
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
