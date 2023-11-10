@@ -56,7 +56,22 @@ class HBNBCommand(cmd.Cmd):
     def handle_dot_all(self, line):
         """Printing all instances of a specific class"""
         args = line.split('.')
+
+        # capture the printed value to count them
+        stdout_backup = sys.stdout
+        sys.stdout = io.StringIO()
+
+        # call the needed method to capture its repsonse
         self.do_all(args[0])
+
+        # get the value printed
+        list_of_instances = sys.stdout.getvalue()
+
+        # restore the stdout to its original state
+        sys.stdout = stdout_backup
+
+        # printing without " quotes
+        print(list_of_instances.replace('"', ''), end='')
     
     def handle_dot_count(self, line):
         """Count number of instances of a specific class"""
