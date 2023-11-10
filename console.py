@@ -37,7 +37,6 @@ class HBNBCommand(cmd.Cmd):
         "City": City
     }
 
-
     def default(self, line):
         """
         Handle dynammic commands that don't
@@ -72,7 +71,7 @@ class HBNBCommand(cmd.Cmd):
 
         # printing without " quotes
         print(list_of_instances.replace('"', ''), end='')
-    
+
     def handle_dot_count(self, line):
         """Count number of instances of a specific class"""
         args = line.split('.')
@@ -91,7 +90,7 @@ class HBNBCommand(cmd.Cmd):
         sys.stdout = stdout_backup
 
         # count number of instances process
-        if(list_of_instances == "[]\n"):
+        if (list_of_instances == "[]\n"):
             print('0')
         else:
             print(len(list_of_instances.split('", "')))
@@ -191,11 +190,14 @@ class HBNBCommand(cmd.Cmd):
         if args:
             if args[0] in HBNBCommand.class_dict.keys():
                 class_name = args[0]
-                objs_list = [str(HBNBCommand.all_instances[key]) \
-                        for key in HBNBCommand.all_instances \
-                    if HBNBCommand.all_instances[key].__class__.__name__ == class_name]
+                objs_list = [
+                        str(HBNBCommand.all_instances[key])
+                        for key in HBNBCommand.all_instances
+                        if HBNBCommand.all_instances[
+                            key].__class__.__name__ == class_name
+                        ]
                 print(objs_list)
-                return 
+                return
             else:
                 print("** class doesn't exist **")
                 return
@@ -265,6 +267,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing when pressing Enter"""
         pass
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
