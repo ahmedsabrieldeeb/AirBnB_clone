@@ -47,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
             line (str): the line to be parsed
         """
         # <class_name>.all()
-        if   re.search(r'\.all\(\)$', line):
+        if re.search(r'\.all\(\)$', line):
             self.handle_dot_all(line)
 
         # <class_name>.count()
@@ -57,13 +57,14 @@ class HBNBCommand(cmd.Cmd):
         # <class.name>.show("<id>")
         elif re.search(r'\w+\.show(.+)', line):
             self.handle_dot_show(line)
-        
+
         # <class name>.destroy(<id>)
         elif re.search(r'\w+\.destroy(.+)', line):
             self.handle_dot_destroy(line)
 
         # <class name>.update(<id>, <attribute name>, <attribute value>)
-        elif re.search(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)',line):
+        elif re.search(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)',
+                       line):
             self.handle_dot_update(line)
 
         else:
@@ -71,13 +72,14 @@ class HBNBCommand(cmd.Cmd):
 
     def handle_dot_update(self, line):
         """Updating an isnatnce given its data"""
-        match = re.match(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)', line)
+        match = re.match(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)',
+                         line)
 
         if match:
             class_name = match.group(1)
             instance_id = match.group(2)[1:-1]
             attribute_name = match.group(3)[1:-1]
-            attribute_value = match.group(4) # its <""> is dealt with in do_update method
+            attribute_value = match.group(4)  # <""> dealt with in do_update
 
             self.do_update(f"{class_name} {instance_id} \
                            {attribute_name} {attribute_value}")
@@ -88,9 +90,9 @@ class HBNBCommand(cmd.Cmd):
 
         if match:
             class_name = match.group(1)
-            instance_id = match.group(2)[1:-1] # excluding ("") from id
+            instance_id = match.group(2)[1:-1]  # excluding ("") from id
 
-            self.do_destroy(f"{class_name} {instance_id}")     
+            self.do_destroy(f"{class_name} {instance_id}")
 
     def handle_dot_show(self, line):
         """Showing an instance based on its id"""
@@ -98,7 +100,7 @@ class HBNBCommand(cmd.Cmd):
 
         if match:
             class_name = match.group(1)
-            instance_id = match.group(2)[1:-1] # excluding ("") from id
+            instance_id = match.group(2)[1:-1]  # excluding ("") from id
 
             self.do_show(f"{class_name} {instance_id}")
 
@@ -140,7 +142,7 @@ class HBNBCommand(cmd.Cmd):
         sys.stdout = stdout_backup
 
         # count number of instances process
-        if(list_of_instances == "[]\n"):
+        if (list_of_instances == "[]\n"):
             print('0')
         elif (list_of_instances == "** class doesn't exist **\n"):
             print(list_of_instances, end='')
