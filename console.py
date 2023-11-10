@@ -8,6 +8,7 @@
 import cmd
 import io
 import sys
+import re
 
 from models.base_model import BaseModel
 from models.user import User
@@ -45,12 +46,61 @@ class HBNBCommand(cmd.Cmd):
         Args:
             line (str): the line to be parsed
         """
-        if (line[-6:] == '.all()'):
+        # <class_name>.all()
+        if   re.search(r'\.all\(\)$', line):
             self.handle_dot_all(line)
-        elif (line[-8:] == '.count()'):
+
+        # <class_name>.count()
+        elif re.search(r'\.count\(\)$', line):
             self.handle_dot_count(line)
+
+        # <class.name>.show("<id>")
+        elif re.search(r'\w+\.show(.+)', line):
+            self.handle_dot_show(line)
+        
+        # <class name>.destroy(<id>)
+        elif re.search(r'\w+\.destroy(.+)', line):
+            self.handle_dot_destroy(line)
+
+        # <class name>.update(<id>, <attribute name>, <attribute value>)
+        elif re.search(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)',line):
+            self.handle_dot_update(line)
+
         else:
             pass
+
+    def handle_dot_update(self, line):
+        """Updating an isnatnce given its data"""
+        match = re.match(r'(\w+)\.update\(([^,]+), \s*([^,]+), \s*([^)]+)\)', line)
+
+        if match:
+            class_name = match.group(1)
+            instance_id = match.group(2)[1:-1]
+            attribute_name = match.group(3)[1:-1]
+            attribute_value = match.group(4) # its <""> is dealt with in do_update method
+
+            self.do_update(f"{class_name} {instance_id} \
+                           {attribute_name} {attribute_value}")
+
+    def handle_dot_destroy(self, line):
+        """Destroying an isnatnce based on its id"""
+        match = re.match(r'(\w+)\.destroy\((.+)\)', line)
+
+        if match:
+            class_name = match.group(1)
+            instance_id = match.group(2)[1:-1] # excluding ("") from id
+
+            self.do_destroy(f"{class_name} {instance_id}")     
+
+    def handle_dot_show(self, line):
+        """Showing an instance based on its id"""
+        match = re.match(r'(\w+)\.show\((.+)\)', line)
+
+        if match:
+            class_name = match.group(1)
+            instance_id = match.group(2)[1:-1] # excluding ("") from id
+
+            self.do_show(f"{class_name} {instance_id}")
 
     def handle_dot_all(self, line):
         """Printing all instances of a specific class"""
@@ -90,8 +140,10 @@ class HBNBCommand(cmd.Cmd):
         sys.stdout = stdout_backup
 
         # count number of instances process
-        if (list_of_instances == "[]\n"):
+        if(list_of_instances == "[]\n"):
             print('0')
+        elif (list_of_instances == "** class doesn't exist **\n"):
+            print(list_of_instances, end='')
         else:
             print(len(list_of_instances.split('", "')))
 
@@ -244,7 +296,7 @@ class HBNBCommand(cmd.Cmd):
 
         try:
             id_key = args[0] + '.' + args[1]
-            desired_obj = (storage.all())[id_key]
+            desired_obj = HBNBCommand.all_instances[id_key]
         except KeyError:
             print("** no instance found **")
             return
