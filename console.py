@@ -1,9 +1,13 @@
 #!/usr/bin/python3
 """
     This module contains the entry point of the command interpreter
+    Author: Ahmed Eldeeb (ahmedsabrieldeeb@gmail.com)
 """
+
+
 import cmd
-import copy
+import io
+import sys
 
 from models.base_model import BaseModel
 from models.user import User
@@ -13,14 +17,16 @@ from models.state import State
 from models.city import City
 from models.review import Review
 
-
 from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
     """The main cmd of the program for testing and adminstrative purposes"""
 
+    all_instances = storage.all()
+
     prompt = "(hbnb) "
+
     class_dict = {
         "BaseModel": BaseModel,
         "User": User,
@@ -30,6 +36,50 @@ class HBNBCommand(cmd.Cmd):
         "State": State,
         "City": City
     }
+
+
+    def default(self, line):
+        """
+        Handle dynammic commands that don't
+        abide by do_command format
+
+        Args:
+            line (str): the line to be parsed
+        """
+        if (line[-6:] == '.all()'):
+            self.handle_dot_all(line)
+        elif (line[-8:] == '.count()'):
+            self.handle_dot_count(line)
+        else:
+            pass
+
+    def handle_dot_all(self, line):
+        """Printing all instances of a specific class"""
+        args = line.split('.')
+        self.do_all(args[0])
+    
+    def handle_dot_count(self, line):
+        """Count number of instances of a specific class"""
+        args = line.split('.')
+
+        # capture the printed value to count them
+        stdout_backup = sys.stdout
+        sys.stdout = io.StringIO()
+
+        # call the needed method to capture its repsonse
+        self.do_all(args[0])
+
+        # get the value printed
+        list_of_instances = sys.stdout.getvalue()
+
+        # restore the stdout to its original state
+        sys.stdout = stdout_backup
+
+        # count number of instances process
+        if(list_of_instances == "[]\n"):
+            print('0')
+        else:
+            print(len(list_of_instances.split('", "')))
 
     def do_create(self, line):
         """
@@ -126,10 +176,11 @@ class HBNBCommand(cmd.Cmd):
         if args:
             if args[0] in HBNBCommand.class_dict.keys():
                 class_name = args[0]
-                all_instances = storage.all()
-                objs_list = [str(all_instances[key]) for key in all_instances if all_instances[key].__class__.__name__ == class_name]
+                objs_list = [str(HBNBCommand.all_instances[key]) \
+                        for key in HBNBCommand.all_instances \
+                    if HBNBCommand.all_instances[key].__class__.__name__ == class_name]
                 print(objs_list)
-                return
+                return 
             else:
                 print("** class doesn't exist **")
                 return
