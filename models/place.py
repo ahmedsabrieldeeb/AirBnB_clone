@@ -38,4 +38,3 @@ class Place(BaseModel):
     latitude = ""
     longitude = ""
     amenity_ids = []
-
