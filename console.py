@@ -6,12 +6,12 @@ import cmd
 import copy
 
 from models.base_model import BaseModel
-# from models.user import User
-# from models.place import Place
-# from models.amenity import Amenity
-# from models.state import State
-# from models.city import City
-# from models.review import Review
+from models.user import User
+from models.place import Place
+from models.amenity import Amenity
+from models.state import State
+from models.city import City
+from models.review import Review
 
 
 from models import storage
@@ -22,13 +22,13 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
     class_dict = {
-        "BaseModel": BaseModel
-        # "User": User,
-        # "Place": Place,
-        # "Review": Review,
-        # "Amenity": Amenity,
-        # "State": State,
-        # "City": City
+        "BaseModel": BaseModel,
+        "User": User,
+        "Place": Place,
+        "Review": Review,
+        "Amenity": Amenity,
+        "State": State,
+        "City": City
     }
 
     def do_create(self, line):

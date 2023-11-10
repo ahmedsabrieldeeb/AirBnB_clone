@@ -68,7 +68,7 @@ class FileStorage:
 
         class_dict = {
             "BaseModel": BaseModel,
-            "User": User
+            "User": User,
             "Place": Place,
             "Review": Review,
             "Amenity": Amenity,
