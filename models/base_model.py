@@ -22,7 +22,7 @@ class BaseModel():
             updated_at (datetime): The datetime Object at which
             the Object instance has been updated Last.
         """
-        
+
         if not kwargs:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -32,8 +32,13 @@ class BaseModel():
             for key, val in kwargs.items():
                 if key != '__class__':
                     if key == "created_at" or key == "updated_at":
-                        setattr(self, key, datetime.strptime(val,
-                                    '%Y-%m-%dT%H:%M:%S.%f'))
+                        setattr(
+                                self,
+                                key,
+                                datetime.strptime(
+                                    val,
+                                    '%Y-%m-%dT%H:%M:%S.%f')
+                                )
                     else:
                         setattr(self, key, val)
 
