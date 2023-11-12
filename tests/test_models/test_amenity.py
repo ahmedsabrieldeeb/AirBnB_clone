@@ -2,7 +2,10 @@
 """Testing Module for Amenity class."""
 
 import unittest
-from models.base_models import BaseModel
+from datetime import datetime, timedelta
+
+
+from models.base_model import BaseModel
 from models.base_model import Amenity
 
 
