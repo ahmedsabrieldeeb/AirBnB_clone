@@ -9,6 +9,13 @@ import unittest
 
 class TestPlace(unittest.TestCase):
     """test class for Place class."""
+    def tearDown(self):
+        # Code to run after each test method
+        file_path = "file.json"
+
+        # Check if the file exists before attempting to delete
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def test_create_place_with_required_arguments(self):
         """

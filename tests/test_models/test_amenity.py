@@ -2,6 +2,7 @@
 """Testing Module for Amenity class."""
 
 import unittest
+import os
 from datetime import datetime, timedelta
 
 
@@ -11,6 +12,13 @@ from models.amenity import Amenity
 
 class TestAmenity(unittest.TestCase):
     """Test Model for Amenity class."""
+    def tearDown(self):
+        # Code to run after each test method
+        file_path = "file.json"
+
+        # Check if the file exists before attempting to delete
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def test_set_name_attribute(self):
         """

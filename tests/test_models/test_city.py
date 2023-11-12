@@ -9,6 +9,13 @@ import unittest
 
 class TestCity(unittest.TestCase):
     """Testing class for City Module."""
+    def tearDown(self):
+        # Code to run after each test method
+        file_path = "file.json"
+
+        # Check if the file exists before attempting to delete
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def test_create_city_with_state_id_and_name(self):
         """

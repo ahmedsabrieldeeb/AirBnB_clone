@@ -9,6 +9,13 @@ import unittest
 
 class TestUser(unittest.TestCase):
     """Testing User class."""
+    def tearDown(self):
+        # Code to run after each test method
+        file_path = "file.json"
+
+        # Check if the file exists before attempting to delete
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def test_valid_user_creation(self):
         """

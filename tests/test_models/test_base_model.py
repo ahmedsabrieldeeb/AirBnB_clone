@@ -3,6 +3,7 @@
 
 
 import unittest
+import os
 from datetime import datetime
 from uuid import uuid4
 
@@ -12,6 +13,14 @@ from models import storage
 
 class TestBaseModel(unittest.TestCase):
     """Testing class for BaseModel."""
+
+    def tearDown(self):
+        # Code to run after each test method
+        file_path = "file.json"
+
+        # Check if the file exists before attempting to delete
+        if os.path.exists(file_path):
+            os.remove(file_path)
 
     def test_create_instance_with_no_arguments(self):
         """
