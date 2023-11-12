@@ -6,6 +6,7 @@
 
 from models.city import City
 import unittest
+import os
 
 class TestCity(unittest.TestCase):
     """Testing class for City Module."""
@@ -67,7 +68,7 @@ class TestCity(unittest.TestCase):
         city = City(state_id="123", name="New York")
         initial_updated_at = city.updated_at
         city.save()
-        self.assertEqual(city.updated_at, initial_updated_at)
+        self.assertNotEqual(city.updated_at, initial_updated_at)
 
 if __name__ == "__main__":
     unittest.main()

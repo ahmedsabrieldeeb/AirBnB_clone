@@ -6,6 +6,7 @@
 
 from models.review import Review
 import unittest
+import os
 
 class TestReview(unittest.TestCase):
     """Testing class for Review class."""

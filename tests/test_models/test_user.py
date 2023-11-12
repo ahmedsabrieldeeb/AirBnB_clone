@@ -6,6 +6,7 @@
 
 from models.user import User
 import unittest
+import os
 
 class TestUser(unittest.TestCase):
     """Testing User class."""
