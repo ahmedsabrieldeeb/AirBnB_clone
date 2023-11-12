@@ -149,3 +149,6 @@ class TestAmenity(unittest.TestCase):
         """
         with self.assertRaises(ValueError):
             Amenity(name="a" * 129)
+
+if __name__ == "__main__":
+    unittest.main()

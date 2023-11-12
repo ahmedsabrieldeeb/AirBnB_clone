@@ -61,3 +61,6 @@ class TestCity(unittest.TestCase):
         initial_updated_at = city.updated_at
         city.save()
         self.assertEqual(city.updated_at, initial_updated_at)
+
+if __name__ == "__main__":
+    unittest.main()

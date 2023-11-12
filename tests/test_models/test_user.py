@@ -77,3 +77,6 @@ class TestUser(unittest.TestCase):
         user = User(email="test@example.com", password="password", first_name="John", last_name="Doe")
         with self.assertRaises(ValueError):
             user.save()
+
+if __name__ == "__main__":
+    unittest.main()

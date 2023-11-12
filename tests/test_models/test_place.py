@@ -81,3 +81,6 @@ class TestPlace(unittest.TestCase):
         place.name = None
         place.save()
         self.assertIsNotNone(place.updated_at)
+
+if __name__ == "__main__":
+    unittest.main()

@@ -62,3 +62,6 @@ class TestReview(unittest.TestCase):
         """
         with self.assertRaises(ValueError):
             review = Review(place_id="123", user_id="", text="Great place")
+
+if __name__ == "__main__":
+    unittest.main()

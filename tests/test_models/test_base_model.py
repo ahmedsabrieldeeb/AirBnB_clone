@@ -172,3 +172,6 @@ class TestBaseModel(unittest.TestCase):
                 dict_rep['updated_at'],
                 instance.updated_at.isoformat()
                 )
+
+if __name__ == "__main__":
+    unittest.main()
