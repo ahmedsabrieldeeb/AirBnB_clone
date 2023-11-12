@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 
 
 from models.base_model import BaseModel
-from models.base_model import Amenity
+from models.amenity import Amenity
 
 
 class TestAmenity(unittest.TestCase):
