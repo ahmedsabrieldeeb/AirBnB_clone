@@ -46,8 +46,10 @@ class TestBaseModel(unittest.TestCase):
             the given values.
         """
         id = str(uuid4())
-        created_at = datetime.now()
-        updated_at = datetime.now()
+        created_at = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        updated_at = datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%f')
+        converted_created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%S.%f')
+        converted_updated_at = datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%f')
         instance = BaseModel(
                 id=id,
                 created_at=created_at,
@@ -55,8 +57,8 @@ class TestBaseModel(unittest.TestCase):
                 )
         self.assertIsInstance(instance, BaseModel)
         self.assertEqual(instance.id, id)
-        self.assertEqual(instance.created_at, created_at)
-        self.assertEqual(instance.updated_at, updated_at)
+        self.assertEqual(instance.created_at, converted_created_at)
+        self.assertEqual(instance.updated_at, converted_updated_at)
 
     def test_save_method(self):
         """
@@ -113,7 +115,7 @@ class TestBaseModel(unittest.TestCase):
         instance = BaseModel()
         old_updated_at = instance.updated_at
         instance.save()
-        self.assertEqual(instance.updated_at, old_updated_at)
+        self.assertNotEqual(instance.updated_at, old_updated_at)
 
     def test_to_dict_method_with_additional_attributes(self):
         """Calling to_dict() on an instance of BaseModel with
@@ -149,11 +151,13 @@ class TestBaseModel(unittest.TestCase):
         """Creating a new instance of BaseModel with
         a created_at or updated_at argument in a valid format
         sets the corresponding attributes to the given datetime."""
-        created_at = datetime(2022, 1, 1)
-        updated_at = datetime(2022, 1, 2)
+        created_at = datetime(2022, 1, 1).strftime('%Y-%m-%dT%H:%M:%S.%f')
+        updated_at = datetime(2022, 1, 2).strftime('%Y-%m-%dT%H:%M:%S.%f')
+        converted_created_at = datetime.strptime(created_at, '%Y-%m-%dT%H:%M:%S.%f')
+        converted_updated_at = datetime.strptime(updated_at, '%Y-%m-%dT%H:%M:%S.%f')
         instance = BaseModel(created_at=created_at, updated_at=updated_at)
-        self.assertEqual(instance.created_at, created_at)
-        self.assertEqual(instance.updated_at, updated_at)
+        self.assertEqual(instance.created_at, converted_created_at)
+        self.assertEqual(instance.updated_at, converted_updated_at)
 
     def test_save_method_updates_storage(self):
         """Calling save() on an instance of BaseModel updates
