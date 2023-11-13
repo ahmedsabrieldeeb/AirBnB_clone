@@ -254,8 +254,8 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
                 return
         else:
-            objs_list = [str(HBNBCommand.all_instances[key])
-                        for key in HBNBCommand.all_instances]
+            objs_list = [str(storage.all()[key])
+                        for key in storage.all()]
             print(objs_list)
 
     def do_update(self, line):
