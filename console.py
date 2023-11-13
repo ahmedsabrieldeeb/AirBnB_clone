@@ -24,8 +24,6 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """The main cmd of the program for testing and adminstrative purposes"""
 
-    all_instances = storage.all()
-
     prompt = "(hbnb) "
 
     class_dict = {
@@ -245,9 +243,9 @@ class HBNBCommand(cmd.Cmd):
             if args[0] in HBNBCommand.class_dict.keys():
                 class_name = args[0]
                 objs_list = [
-                        str(HBNBCommand.all_instances[key])
-                        for key in HBNBCommand.all_instances
-                        if HBNBCommand.all_instances[
+                        str(storage.all()[key])
+                        for key in storage.all()
+                        if storage.all()[
                             key].__class__.__name__ == class_name
                         ]
                 print(objs_list)
@@ -255,10 +253,10 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print("** class doesn't exist **")
                 return
-
-        all_instances = storage.all()
-        objs_list = [str(all_instances[key]) for key in all_instances]
-        print(objs_list)
+        else:
+            objs_list = [str(HBNBCommand.all_instances[key])
+                        for key in HBNBCommand.all_instances]
+            print(objs_list)
 
     def do_update(self, line):
         """
@@ -298,7 +296,7 @@ class HBNBCommand(cmd.Cmd):
 
         try:
             id_key = args[0] + '.' + args[1]
-            desired_obj = HBNBCommand.all_instances[id_key]
+            desired_obj = storage.all()[id_key]
         except KeyError:
             print("** no instance found **")
             return

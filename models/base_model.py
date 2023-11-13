@@ -27,7 +27,6 @@ class BaseModel():
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.updated_at = datetime.now()
-        storage.new(self)
 
         if kwargs:
             for key, val in kwargs.items():
@@ -42,7 +41,9 @@ class BaseModel():
                                 )
                     else:
                         setattr(self, key, val)
-
+        else:
+            storage.new(self)
+    
     def __str__(self):
         """Return a string representation of the class"""
 
