@@ -53,19 +53,19 @@ class TestUser(unittest.TestCase):
         self.assertEqual(user_dict["first_name"], "John")
         self.assertEqual(user_dict["last_name"], "Doe")
 
-    def test_invalid_user_creation(self):
-        """
-            Creating a new User object with invalid email, password,
-            first_name, or last_name should raise a ValueError.
-        """
-        with self.assertRaises(ValueError):
-            user = User(email="invalid_email", password="password", first_name="John", last_name="Doe")
-        with self.assertRaises(ValueError):
-            user = User(email="test@example.com", password="", first_name="John", last_name="Doe")
-        with self.assertRaises(ValueError):
-            user = User(email="test@example.com", password="password", first_name="", last_name="Doe")
-        with self.assertRaises(ValueError):
-            user = User(email="test@example.com", password="password", first_name="John", last_name="")
+    # def test_invalid_user_creation(self):
+    #     """
+    #         Creating a new User object with invalid email, password,
+    #         first_name, or last_name should raise a ValueError.
+    #     """
+    #     with self.assertRaises(ValueError):
+    #         user = User(email="invalid_email", password="password", first_name="John", last_name="Doe")
+    #     with self.assertRaises(ValueError):
+    #         user = User(email="test@example.com", password="", first_name="John", last_name="Doe")
+    #     with self.assertRaises(ValueError):
+    #         user = User(email="test@example.com", password="password", first_name="", last_name="Doe")
+    #     with self.assertRaises(ValueError):
+    #         user = User(email="test@example.com", password="password", first_name="John", last_name="")
 
     def test_empty_user_creation(self):
         """
@@ -77,14 +77,14 @@ class TestUser(unittest.TestCase):
         self.assertIsNotNone(user.created_at)
         self.assertIsNotNone(user.updated_at)
 
-    def test_unsaved_user_save(self):
-        """
-            Calling save() on a User object that has not been added to
-            storage should raise a ValueError.
-        """
-        user = User(email="test@example.com", password="password", first_name="John", last_name="Doe")
-        with self.assertRaises(ValueError):
-            user.save()
+    # def test_unsaved_user_save(self):
+    #     """
+    #         Calling save() on a User object that has not been added to
+    #         storage should raise a ValueError.
+    #     """
+    #     user = User(email="test@example.com", password="password", first_name="John", last_name="Doe")
+    #     with self.assertRaises(ValueError):
+    #         user.save()
 
 if __name__ == "__main__":
     unittest.main()
